@@ -115,17 +115,22 @@ char	**ps_tokenize(int argc, char **argv)
 	tokens[k] = NULL;
 	return (tokens);
 }
-int check(const char *str)
+int	check(const char *str)
 {
-	int i;
-	i=0;
+	int	i;
+
+	i = 0;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '+' || str[i] == '-')
 		i++;
-	if(!(str[i]>='0' && str[i]<='9'))
-			return(0);
-	return(1);
+	if (!(str[i] >= '0' && str[i] <= '9'))
+		return (0);
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	if (str[i] != '\0')
+		return (0);
+	return (1);
 }
 long ps_atoi_long(const char *nptr)
 {
@@ -155,17 +160,92 @@ long ps_atoi_long(const char *nptr)
 	result=sum*sign;
 	return (result);
 }
-int ps_atoi_checked(const char *s, int *out)
+int	ps_atoi_checked(const char *s, int *out)
 {
-	long res;
+	long	res;
+
 	if (!check(s))
-		return(0);
-	res=ps_atoi_long(s);
-	if(res>__INT_MAX__ || res<__INT_MIN__)
-		return(0);
-	else
-	*out =(int)res;
-	return(1);
+		return (0);
+	res = ps_atoi_long(s);
+	if (res > __INT_MAX__ || res < __INT_MIN__)
+		return (0);
+	*out = (int)res;
+	return (1);
 }
+int	*ps_tokens_to_numbers(char **tokens)
+{
+	int i;
+	int count ;
+	int *store;
 
+	i=0;
+	count =0;
+	while(tokens[i])
+	{
+		i++;
+		count++;
+	}
+	store=malloc(count *sizeof(int));
+	if (!store)
+		return (NULL);
+	i=0;
+	while(tokens[i])
+	{
+		if (!ps_atoi_checked(tokens[i], &store[i]))
+		{
+			free(store);
+			return (NULL);
+		}
+		i++;
+	}
+	return (store);
+}
+int	ps_has_duplicate(int *numbers, int count)
+{
+	int i;
+	int j;
 
+	i=0;
+	while(i<count)
+	{j = i + 1;
+		while (j < count)
+		{
+			if (numbers[i] == numbers[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return(0);
+}
+int	ps_tokens_len(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i])
+		i++;
+	return (i);
+}
+int	*ps_parse_numbers(int argc, char **argv)
+{
+	char	**tokens;
+	int		*numbers;
+	int		count;
+
+	tokens = ps_tokenize(argc, argv);
+	if (!tokens)
+		return (NULL);
+	count = ps_tokens_len(tokens);
+	numbers = ps_tokens_to_numbers(tokens);
+	ps_free_tokens(tokens);
+	if (!numbers)
+		return (NULL);
+	if (ps_has_duplicate(numbers, count))
+	{
+		free(numbers);
+		ft_putendl_fd("Error", 2);
+		return (NULL);
+	}
+	return (numbers);
+}
