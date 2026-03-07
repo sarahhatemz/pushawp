@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include<stdio.h>
 void ps_free_tokens(char **tokens)
 { 
     int i;
