@@ -20,5 +20,6 @@ int     main(int ac, char **av)
     b = NULL;
     if (!is_sorted(a))
         sort_small(&a, &b);
+    free_stack(&a);
     return (0);
 }
