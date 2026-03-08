@@ -6,32 +6,12 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:04:53 by salzghou          #+#    #+#             */
-/*   Updated: 2026/01/27 22:05:24 by marvin           ###   ########.fr       */
+/*   Updated: 2026/03/08 18:31:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
-{
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	while (s[i])
-		i++;
-	str = malloc((i + 1) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

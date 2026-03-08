@@ -34,7 +34,7 @@ int	ps_atoi_checked(const char *s, int *out)
 	if (!check(s))
 		return (0);
 	res = ps_atoi_long(s);
-	if (res > __INT_MAX__ || res < __INT_MIN__)
+	if (res > INT_MAX || res < INT_MIN)
 		return (0);
 	*out = (int)res;
 	return (1);
