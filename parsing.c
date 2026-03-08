@@ -13,10 +13,19 @@ void ps_free_tokens(char **tokens)
     free(tokens);
 }
 
-    int	ps_count_tokens(int argc, char **argv)
+static int	ps_count_split(char **split)
+{
+	int	j;
+
+	j = 0;
+	while (split[j])
+		j++;
+	return (j);
+}
+
+int	ps_count_tokens(int argc, char **argv)
 {
 	int		i;
-	int		j;
 	int		total;
 	char	**split;
 
@@ -25,19 +34,12 @@ void ps_free_tokens(char **tokens)
 	while (i < argc)
 	{
 		split = ft_split(argv[i], ' ');
-		if (!split)
-			return (-1);
-		if (split[0] == NULL)
+		if (!split || !split[0])
 		{
 			ps_free_tokens(split);
 			return (-1);
 		}
-		j = 0;
-		while (split[j])
-		{
-			total++;
-			j++;
-		}
+		total += ps_count_split(split);
 		ps_free_tokens(split);
 		i++;
 	}
@@ -76,13 +78,27 @@ static int	ps_fill_tokens(char **tokens, char **split, int k)
 	return (k);
 }
 
+static int	ps_process_arg(char **tokens, char *arg, int k)
+{
+	char	**split;
+
+	split = ft_split(arg, ' ');
+	if (!split || !split[0])
+	{
+		ps_free_tokens(split);
+		return (-1);
+	}
+	k = ps_fill_tokens(tokens, split, k);
+	ps_free_tokens(split);
+	return (k);
+}
+
 char	**ps_tokenize(int argc, char **argv)
 {
 	int		total;
 	char	**tokens;
 	int		i;
 	int		k;
-	char	**split;
 
 	total = ps_count_tokens(argc, argv);
 	if (total == -1)
@@ -94,11 +110,7 @@ char	**ps_tokenize(int argc, char **argv)
 	k = 0;
 	while (i < argc)
 	{
-		split = ft_split(argv[i], ' ');
-		if (!split || !split[0])
-			return (ps_free_tokens(split), ps_free_partial(tokens, k), NULL);
-		k = ps_fill_tokens(tokens, split, k);
-		ps_free_tokens(split);
+		k = ps_process_arg(tokens, argv[i], k);
 		if (k == -1)
 			return (ps_free_partial(tokens, 0), NULL);
 		i++;
