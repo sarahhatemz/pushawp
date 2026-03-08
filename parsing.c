@@ -60,56 +60,47 @@ static void	ps_free_partial(char **tokens, int count)
 	free(tokens);
 }
 
+static int	ps_fill_tokens(char **tokens, char **split, int k)
+{
+	int	j;
+
+	j = 0;
+	while (split[j])
+	{
+		tokens[k] = ft_strdup(split[j]);
+		if (!tokens[k])
+			return (-1);
+		k++;
+		j++;
+	}
+	return (k);
+}
+
 char	**ps_tokenize(int argc, char **argv)
 {
 	int		total;
 	char	**tokens;
 	int		i;
-	int		j;
 	int		k;
 	char	**split;
 
 	total = ps_count_tokens(argc, argv);
 	if (total == -1)
-	{
-	ft_putendl_fd("Error",2);
-		return (NULL);
-	}
-
-	tokens = (char **)malloc((total + 1) * sizeof(char *));
+		return (ft_putendl_fd("Error", 2), NULL);
+	tokens = malloc((total + 1) * sizeof(char *));
 	if (!tokens)
-	{
-		ft_putendl_fd("Error",2);
-		return (NULL);
-	}
+		return (ft_putendl_fd("Error", 2), NULL);
 	i = 1;
 	k = 0;
 	while (i < argc)
 	{
 		split = ft_split(argv[i], ' ');
-		if (!split || split[0] == NULL)
-		{
-			if (split)
-				ps_free_tokens(split);
-			ps_free_partial(tokens, k);
-			ft_putendl_fd("Error",2);
-			return (NULL);
-		}
-		j = 0;
-		while (split[j])
-		{
-			tokens[k] = ft_strdup(split[j]);
-			if (!tokens[k])
-			{
-				ps_free_tokens(split);
-				ps_free_partial(tokens, k);
-				ft_putendl_fd("Error",2);
-				return (NULL);
-			}
-			k++;
-			j++;
-		}
+		if (!split || !split[0])
+			return (ps_free_tokens(split), ps_free_partial(tokens, k), NULL);
+		k = ps_fill_tokens(tokens, split, k);
 		ps_free_tokens(split);
+		if (k == -1)
+			return (ps_free_partial(tokens, 0), NULL);
 		i++;
 	}
 	tokens[k] = NULL;

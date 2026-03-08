@@ -107,31 +107,32 @@ void	sort_4(t_node **a, t_node **b)
 	pa(a, b);
 }
 
-void	sort_5(t_node **a, t_node **b)
+static void	rotate_min_to_top(t_node **a)
 {
 	int	pos;
 	int	size;
-	int	i;
 
-	if (!a || !(*a) || stack_size(*a) < 5)
-		return ;
-	i = 0;
-	while (i < 2)
+	pos = find_min_position(*a);
+	size = stack_size(*a);
+	while (pos > 0)
 	{
+		if (pos <= size / 2)
+			ra(a);
+		else
+			rra(a);
 		pos = find_min_position(*a);
 		size = stack_size(*a);
-		while (pos > 0)
-		{
-			if (pos <= size / 2)
-				ra(a);
-			else
-				rra(a);
-			pos = find_min_position(*a);
-			size = stack_size(*a);
-		}
-		pb(a, b);
-		i++;
 	}
+}
+
+void	sort_5(t_node **a, t_node **b)
+{
+	if (!a || !(*a) || stack_size(*a) < 5)
+		return ;
+	rotate_min_to_top(a);
+	pb(a, b);
+	rotate_min_to_top(a);
+	pb(a, b);
 	sort_3(a);
 	pa(a, b);
 	pa(a, b);

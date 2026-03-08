@@ -1,10 +1,9 @@
 #include"push_swap.h"
-long ps_atoi_long(const char *nptr)
+long	ps_atoi_long(const char *nptr)
 {
-	int	i;
+	int		i;
 	long	sum;
-	int	sign;
-	long result; 
+	int		sign;
 
 	i = 0;
 	sum = 0;
@@ -18,14 +17,10 @@ long ps_atoi_long(const char *nptr)
 		i++;
 	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		sum = (sum * 10) + (nptr[i] - '0');
-		i++;
-	}
-	if(nptr[i] != '\0')
-		return(99999999999999);
-	result=sum*sign;
-	return (result);
+		sum = (sum * 10) + (nptr[i++] - '0');
+	if (nptr[i] != '\0')
+		return (99999999999999);
+	return (sum * sign);
 }
 int	ps_atoi_checked(const char *s, int *out)
 {
@@ -41,22 +36,16 @@ int	ps_atoi_checked(const char *s, int *out)
 }
 int	*ps_tokens_to_numbers(char **tokens)
 {
-	int i;
-	int count ;
-	int *store;
+	int		i;
+	int		count;
+	int		*store;
 
-	i=0;
-	count =0;
-	while(tokens[i])
-	{
-		i++;
-		count++;
-	}
-	store=malloc(count *sizeof(int));
+	count = ps_tokens_len(tokens);
+	store = malloc(count * sizeof(int));
 	if (!store)
 		return (NULL);
-	i=0;
-	while(tokens[i])
+	i = 0;
+	while (tokens[i])
 	{
 		if (!ps_atoi_checked(tokens[i], &store[i]))
 		{
