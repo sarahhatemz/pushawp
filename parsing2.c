@@ -50,6 +50,7 @@ int	*ps_tokens_to_numbers(char **tokens)
 		if (!ps_atoi_checked(tokens[i], &store[i]))
 		{
 			free(store);
+			ft_putendl_fd("Error", 2);
 			return (NULL);
 		}
 		i++;
