@@ -1,209 +1,105 @@
-*This project has been created as part of the 42 curriculum by salzghou.
-
 # push_swap
 
-## Description
-
-**push_swap** is a sorting algorithm project from the 42 curriculum.
-The goal is to sort a list of integers using **two stacks** and a **limited set of operations**, while producing the **smallest possible number of instructions**.
-
-The program receives integers as arguments and prints a sequence of stack operations that sorts the numbers in **ascending order**.
-
-This project focuses on:
-
-* algorithm design
-* optimization
-* data structures
-* complexity analysis
-* memory management in C
-
-The challenge is not only to sort the numbers, but to do so using the **fewest operations possible**.
+A sorting algorithm project written in C that sorts a stack of integers using a limited set of operations, with the goal of using the fewest moves possible.
 
 ---
 
-# How It Works
+## What it does
 
-Two stacks are used:
-
-* **Stack A** – initially contains all numbers.
-* **Stack B** – starts empty.
-
-The program manipulates these stacks using a limited set of operations until **Stack A is sorted**.
+`push_swap` takes a list of integers as arguments and outputs the sequence of operations needed to sort them in ascending order using two stacks: **stack A** and **stack B**.
 
 ---
 
-# Allowed Operations
-
-| Instruction | Description                                 |
-| ----------- | ------------------------------------------- |
-| `sa`        | Swap the first two elements of stack A      |
-| `sb`        | Swap the first two elements of stack B      |
-| `ss`        | Execute `sa` and `sb` simultaneously        |
-| `pa`        | Push the top element of B to A              |
-| `pb`        | Push the top element of A to B              |
-| `ra`        | Rotate stack A (first element becomes last) |
-| `rb`        | Rotate stack B                              |
-| `rr`        | Execute `ra` and `rb` simultaneously        |
-| `rra`       | Reverse rotate stack A                      |
-| `rrb`       | Reverse rotate stack B                      |
-| `rrr`       | Execute `rra` and `rrb` simultaneously      |
-
----
-
-# Algorithm Strategy
-
-The project uses different strategies depending on the input size.
-
-### Small Inputs (2–5 numbers)
-
-Hard-coded sorting strategies are used:
-
-* 2 numbers → simple swap
-* 3 numbers → minimal case analysis
-* 4–5 numbers → push smallest numbers to stack B, sort remaining values, then push them back.
-
-### Large Inputs
-
-For larger datasets the program:
-
-1. **Normalizes values using ranking**
-2. **Applies a radix sorting strategy**
-
-Radix sorting works by sorting numbers bit-by-bit using stack operations, ensuring consistent and predictable performance.
-
----
-
-# Compilation
-
-Compile the project using:
+## Usage
 
 ```bash
 make
+./push_swap 3 1 4 1 5 9 2 6
 ```
 
-This will create the executable:
-
+You can also pass numbers as a single quoted string:
 ```bash
-./push_swap
+./push_swap "3 1 4 1 5 9 2 6"
 ```
 
-Clean object files:
-
+To verify the output is correct using the provided checker:
 ```bash
-make clean
-```
-
-Clean everything:
-
-```bash
-make fclean
-```
-
-Recompile:
-
-```bash
-make re
+./push_swap 3 1 4 1 5 9 2 6 | ./checker_linux 3 1 4 1 5 9 2 6
 ```
 
 ---
 
-# Usage
+## Allowed Operations
 
-Example:
-
-```bash
-./push_swap 2 1 3 6 5 8
-```
-
-Output:
-
-```text
-sa
-pb
-pb
-pb
-sa
-pa
-pa
-pa
-```
-
-Each line represents an operation applied to the stacks.
+| Operation | Description |
+|-----------|-------------|
+| `sa` | Swap the first 2 elements of stack A |
+| `sb` | Swap the first 2 elements of stack B |
+| `ss` | `sa` and `sb` simultaneously |
+| `pa` | Push top of stack B onto stack A |
+| `pb` | Push top of stack A onto stack B |
+| `ra` | Rotate stack A up (first becomes last) |
+| `rb` | Rotate stack B up (first becomes last) |
+| `rr` | `ra` and `rb` simultaneously |
+| `rra` | Reverse rotate stack A (last becomes first) |
+| `rrb` | Reverse rotate stack B (last becomes first) |
+| `rrr` | `rra` and `rrb` simultaneously |
 
 ---
 
-# Error Handling
+## Algorithm
 
-The program prints:
-
-```
-Error
-```
-
-when encountering invalid input, such as:
-
-* non-numeric values
-* duplicate numbers
-* numbers outside the integer range
-* invalid argument formatting
+- **2 numbers** — single swap if needed
+- **3 numbers** — hardcoded optimal solution (max 2 ops)
+- **4 numbers** — move minimum to B, sort 3, push back
+- **5 numbers** — move 2 minimums to B, sort 3, push back
+- **6+ numbers** — **Radix sort** using binary rank assignment
 
 ---
 
-# Performance Goals
+## Error Handling
 
-The project is evaluated based on the number of operations required to sort the stacks.
-
-Target benchmarks:
-
-| Input Size  | Maximum Operations |
-| ----------- | ------------------ |
-| 100 numbers | < 700 operations   |
-| 500 numbers | < 5500 operations  |
-
-Efficient algorithm design is essential to meet these limits.
+The program writes `Error` to stderr and exits with code 1 for:
+- Non-integer arguments (e.g. `"abc"`)
+- Integer overflow (outside `INT_MIN` / `INT_MAX`)
+- Duplicate values
+- Empty string arguments
 
 ---
 
-# Project Structure
-
-Example structure of the project:
+## Project Structure
 
 ```
 push_swap/
-│
+├── main.c              # Entry point
+├── push_swap.h         # Header / structs / prototypes
+├── stack.c             # Stack creation and memory management
+├── sort.c              # Sorting algorithms (2/3/4/5/radix)
+├── ops.c               # sa, sb, ss, pa, pb
+├── ops2.c              # ra, rb, rr
+├── reverse_rotate.c    # rra, rrb, rrr
+├── parsing.c           # Tokenization and input splitting
+├── parsing2.c          # Number validation and conversion
+├── parsing3.c          # Top-level parse entry point
 ├── Makefile
-├── push_swap.c
-├── parsing/
-├── operations/
-├── sorting/
-├── stack/
-└── includes/
+└── libft/              # Custom C library
 ```
 
 ---
 
-# Resources
+## Makefile
 
-Useful materials for this project:
-
-* Stack data structures
-* Sorting algorithms
-* Radix sort algorithm
-* Algorithmic complexity (Big-O notation)
-
-Recommended reading:
-
-* https://en.wikipedia.org/wiki/Radix_sort
-* https://visualgo.net/en/sorting
+```bash
+make        # Build push_swap
+make clean  # Remove object files
+make fclean # Remove object files and binary
+make re     # Full rebuild
+```
 
 ---
 
-# AI Usage
+## Requirements
 
-AI tools were used for:
-
-* understanding algorithm strategies
-* reviewing code structure
-* improving documentation clarity
-
-All code and logic were reviewed and understood before being integrated into the project.
+- GCC compiler
+- GNU Make
+- Linux / macOS
