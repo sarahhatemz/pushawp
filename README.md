@@ -1,105 +1,107 @@
+*This project has been created as part of the 42 curriculum by salzghou.*
+
 # push_swap
 
-A sorting algorithm project written in C that sorts a stack of integers using a limited set of operations, with the goal of using the fewest moves possible.
+## Description
 
----
+**push_swap** is a sorting algorithm project from the 42 curriculum. The goal is to sort a stack of integers using two stacks (`a` and `b`) and a limited set of operations, producing the **shortest possible sequence of instructions**.
 
-## What it does
+The program receives a list of integers as arguments, with the first argument at the top of stack `a`, and outputs the sequence of operations needed to sort stack `a` in ascending order (smallest at the top).
 
-`push_swap` takes a list of integers as arguments and outputs the sequence of operations needed to sort them in ascending order using two stacks: **stack A** and **stack B**.
-
----
-
-## Usage
-
-```bash
-make
-./push_swap 3 1 4 1 5 9 2 6
-```
-
-You can also pass numbers as a single quoted string:
-```bash
-./push_swap "3 1 4 1 5 9 2 6"
-```
-
-To verify the output is correct using the provided checker:
-```bash
-./push_swap 3 1 4 1 5 9 2 6 | ./checker_linux 3 1 4 1 5 9 2 6
-```
-
----
-
-## Allowed Operations
+### Available operations
 
 | Operation | Description |
 |-----------|-------------|
-| `sa` | Swap the first 2 elements of stack A |
-| `sb` | Swap the first 2 elements of stack B |
+| `sa` | Swap the top 2 elements of stack a |
+| `sb` | Swap the top 2 elements of stack b |
 | `ss` | `sa` and `sb` simultaneously |
-| `pa` | Push top of stack B onto stack A |
-| `pb` | Push top of stack A onto stack B |
-| `ra` | Rotate stack A up (first becomes last) |
-| `rb` | Rotate stack B up (first becomes last) |
+| `pa` | Push top of stack b onto stack a |
+| `pb` | Push top of stack a onto stack b |
+| `ra` | Rotate stack a upward (first becomes last) |
+| `rb` | Rotate stack b upward (first becomes last) |
 | `rr` | `ra` and `rb` simultaneously |
-| `rra` | Reverse rotate stack A (last becomes first) |
-| `rrb` | Reverse rotate stack B (last becomes first) |
+| `rra` | Reverse rotate stack a (last becomes first) |
+| `rrb` | Reverse rotate stack b (last becomes first) |
 | `rrr` | `rra` and `rrb` simultaneously |
 
----
+### Algorithm
 
-## Algorithm
+- **2–3 elements**: hardcoded optimal sequences
+- **4–5 elements**: push minimum(s) to b, sort remaining, push back
+- **6+ elements**: **Radix sort** on normalized ranks — each number is assigned a rank (0 to n-1), then sorted bit by bit using `pb`/`ra`/`pa`
 
-- **2 numbers** — single swap if needed
-- **3 numbers** — hardcoded optimal solution (max 2 ops)
-- **4 numbers** — move minimum to B, sort 3, push back
-- **5 numbers** — move 2 minimums to B, sort 3, push back
-- **6+ numbers** — **Radix sort** using binary rank assignment
+### Performance
 
----
-
-## Error Handling
-
-The program writes `Error` to stderr and exits with code 1 for:
-- Non-integer arguments (e.g. `"abc"`)
-- Integer overflow (outside `INT_MIN` / `INT_MAX`)
-- Duplicate values
-- Empty string arguments
+| Input size | Operations |
+|------------|------------|
+| 100 numbers | < 700 |
+| 500 numbers | < 5500 |
 
 ---
 
-## Project Structure
+## Instructions
 
-```
-push_swap/
-├── main.c              # Entry point
-├── push_swap.h         # Header / structs / prototypes
-├── stack.c             # Stack creation and memory management
-├── sort.c              # Sorting algorithms (2/3/4/5/radix)
-├── ops.c               # sa, sb, ss, pa, pb
-├── ops2.c              # ra, rb, rr
-├── reverse_rotate.c    # rra, rrb, rrr
-├── parsing.c           # Tokenization and input splitting
-├── parsing2.c          # Number validation and conversion
-├── parsing3.c          # Top-level parse entry point
-├── Makefile
-└── libft/              # Custom C library
-```
-
----
-
-## Makefile
+### Compilation
 
 ```bash
-make        # Build push_swap
-make clean  # Remove object files
-make fclean # Remove object files and binary
-make re     # Full rebuild
+make        # builds push_swap
+make bonus  # builds checker (bonus)
+make clean  # removes object files
+make fclean # removes object files and binaries
+make re     # fclean + make
+```
+
+### Usage
+
+```bash
+./push_swap 3 1 2
+./push_swap "3 1 2"
+./push_swap 42 -7 15 0 3
+```
+
+### Checking correctness
+
+Use the provided `checker_linux` binary (or your own `checker` from the bonus):
+
+```bash
+ARG="4 67 3 87 23"
+./push_swap $ARG | ./checker_linux $ARG
+# Output: OK
+```
+
+### Error handling
+
+The program prints `Error` to stderr and exits on:
+- Non-integer arguments
+- Values exceeding `INT_MAX` / `INT_MIN`
+- Duplicate values
+
+```bash
+./push_swap 1 2 one   # Error
+./push_swap 1 1 2     # Error
 ```
 
 ---
 
-## Requirements
+## Resources
 
-- GCC compiler
-- GNU Make
-- Linux / macOS
+### References
+
+- [Sorting algorithms — Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)
+- [Radix sort — Wikipedia](https://en.wikipedia.org/wiki/Radix_sort)
+- [Push_swap — the least number of moves (medium article)](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
+- [Visualizer for push_swap](https://github.com/o-reo/push_swap_visualizer)
+
+### AI usage
+
+Improving README documentation
+
+Understanding algorithm optimization approaches
+
+Reviewing explanations of sorting strategies
+
+All implementation decisions, algorithms, and code development were written and understood by the project author.
+
+
+
+All AI-generated suggestions were reviewed, tested, and understood before being integrated into the project.
