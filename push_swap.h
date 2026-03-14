@@ -20,6 +20,9 @@ typedef struct s_node
 t_node	*new_node(int value);
 void	add_back(t_node **stack, t_node *new);
 t_node	*build_stack(int *numbers, int count);
+void	ps_free_partial(char **tokens, int count);
+int	ps_fill_tokens(char **tokens, char **split, int k);
+void	sort_3_cases(t_node **a, int f, int s, int t);
 
 
 void	sa(t_node **a);
@@ -48,6 +51,10 @@ void	sort_5(t_node **a, t_node **b);
 void	sort_small(t_node **a, t_node **b);
 void	assign_ranks(t_node *a, int size);
 void	radix_sort(t_node **a, t_node **b, int size);
+ void	rotate_min_to_top(t_node **a);
+ void	sort_tmp(int *arr, int size);
+ int	get_max_bits(int size);
+
 
 
 void	ps_free_tokens(char **tokens);

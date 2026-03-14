@@ -47,7 +47,7 @@ int	ps_count_tokens(int argc, char **argv)
 }
 
 
-static void	ps_free_partial(char **tokens, int count)
+ void	ps_free_partial(char **tokens, int count)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ static void	ps_free_partial(char **tokens, int count)
 	free(tokens);
 }
 
-static int	ps_fill_tokens(char **tokens, char **split, int k)
+ int	ps_fill_tokens(char **tokens, char **split, int k)
 {
 	int	j;
 

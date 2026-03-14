@@ -29,7 +29,7 @@ void	assign_ranks(t_node *a, int size)
 	free(tmp);
 }
 
-static int	get_max_bits(int size)
+int	get_max_bits(int size)
 {
 	int	bits;
 	int	max;

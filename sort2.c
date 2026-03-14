@@ -34,8 +34,7 @@ void	sort_4(t_node **a, t_node **b)
 	sort_3(a);
 	pa(a, b);
 }
-
-static void	rotate_min_to_top(t_node **a)
+ void	rotate_min_to_top(t_node **a)
 {
 	int	pos;
 	int	size;
@@ -66,7 +65,7 @@ void	sort_5(t_node **a, t_node **b)
 	pa(a, b);
 }
 
-static void	sort_tmp(int *arr, int size)
+void	sort_tmp(int *arr, int size)
 {
 	int	i;
 	int	j;

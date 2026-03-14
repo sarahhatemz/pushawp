@@ -56,7 +56,7 @@ void	sort_2(t_node **a)
 		sa(a);
 }
 
-static void	sort_3_cases(t_node **a, int f, int s, int t)
+void	sort_3_cases(t_node **a, int f, int s, int t)
 {
 	if (f > s && s < t && f < t)
 		sa(a);
@@ -75,4 +75,5 @@ static void	sort_3_cases(t_node **a, int f, int s, int t)
 	else if (f < s && s > t && f > t)
 		rra(a);
 }
+
 
