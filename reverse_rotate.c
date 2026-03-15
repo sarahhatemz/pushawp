@@ -1,4 +1,16 @@
-#include"push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reverse_rotate.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salzghou <salzghou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 13:30:21 by salzghou          #+#    #+#             */
+/*   Updated: 2026/03/15 13:30:21 by salzghou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
 
 void	rotate(t_node **stack)
 {
@@ -15,12 +27,14 @@ void	rotate(t_node **stack)
 		last = last->next;
 	last->next = first;
 }
+
 void	rr(t_node **a, t_node **b)
 {
 	rotate(a);
 	rotate(b);
 	write(1, "rr\n", 3);
 }
+
 void	reverse_rotate(t_node **stack)
 {
 	t_node	*last;
@@ -39,6 +53,7 @@ void	reverse_rotate(t_node **stack)
 	last->next = *stack;
 	*stack = last;
 }
+
 void	rrr(t_node **a, t_node **b)
 {
 	reverse_rotate(a);

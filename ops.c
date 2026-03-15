@@ -1,4 +1,17 @@
-#include"push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ops.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salzghou <salzghou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 13:30:05 by salzghou          #+#    #+#             */
+/*   Updated: 2026/03/15 13:30:05 by salzghou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
 void	sa(t_node **a)
 {
 	t_node	*first;
@@ -28,6 +41,7 @@ void	sb(t_node **b)
 	*b = second;
 	write(1, "sb\n", 3);
 }
+
 void	ss(t_node **a, t_node **b)
 {
 	t_node	*first;
@@ -51,6 +65,7 @@ void	ss(t_node **a, t_node **b)
 	}
 	write(1, "ss\n", 3);
 }
+
 void	pb(t_node **a, t_node **b)
 {
 	t_node	*temp;
@@ -63,6 +78,7 @@ void	pb(t_node **a, t_node **b)
 	*b = temp;
 	write(1, "pb\n", 3);
 }
+
 void	pa(t_node **a, t_node **b)
 {
 	t_node	*temp;

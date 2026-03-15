@@ -1,4 +1,16 @@
-#include"push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ops2.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salzghou <salzghou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 13:30:07 by salzghou          #+#    #+#             */
+/*   Updated: 2026/03/15 13:30:07 by salzghou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
 
 void	ra(t_node **a)
 {
@@ -10,13 +22,13 @@ void	ra(t_node **a)
 	first = *a;
 	*a = first->next;
 	first->next = NULL;
-
 	last = *a;
 	while (last->next)
 		last = last->next;
 	last->next = first;
 	write(1, "ra\n", 3);
 }
+
 void	rb(t_node **b)
 {
 	t_node	*first;
@@ -27,13 +39,13 @@ void	rb(t_node **b)
 	first = *b;
 	*b = first->next;
 	first->next = NULL;
-
 	last = *b;
 	while (last->next)
 		last = last->next;
 	last->next = first;
 	write(1, "rb\n", 3);
 }
+
 void	rra(t_node **a)
 {
 	t_node	*last;
@@ -53,6 +65,7 @@ void	rra(t_node **a)
 	*a = last;
 	write(1, "rra\n", 4);
 }
+
 void	rrb(t_node **b)
 {
 	t_node	*last;

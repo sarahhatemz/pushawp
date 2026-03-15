@@ -1,16 +1,30 @@
-#include"push_swap.h"
-void ps_free_tokens(char **tokens)
-{ 
-    int i;
-    i=0;
-    if (!tokens)
-        return ;
-    while(tokens[i])
-    {  
-    free(tokens[i]);
-    i++;
-    }
-    free(tokens);
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salzghou <salzghou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 13:30:10 by salzghou          #+#    #+#             */
+/*   Updated: 2026/03/15 13:30:10 by salzghou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	ps_free_tokens(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	if (!tokens)
+		return ;
+	while (tokens[i])
+	{
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
 }
 
 static int	ps_count_split(char **split)
@@ -46,13 +60,12 @@ int	ps_count_tokens(int argc, char **argv)
 	return (total);
 }
 
-
- void	ps_free_partial(char **tokens, int count)
+void	ps_free_partial(char **tokens, int count)
 {
 	int	i;
 
 	if (!tokens)
-		return;
+		return ;
 	i = 0;
 	while (i < count)
 	{
@@ -62,7 +75,7 @@ int	ps_count_tokens(int argc, char **argv)
 	free(tokens);
 }
 
- int	ps_fill_tokens(char **tokens, char **split, int k)
+int	ps_fill_tokens(char **tokens, char **split, int k)
 {
 	int	j;
 
@@ -77,6 +90,3 @@ int	ps_count_tokens(int argc, char **argv)
 	}
 	return (k);
 }
-
-
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salzghou <salzghou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 13:30:27 by salzghou          #+#    #+#             */
+/*   Updated: 2026/03/15 13:39:47 by salzghou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	sort_3(t_node **a)
@@ -34,7 +46,8 @@ void	sort_4(t_node **a, t_node **b)
 	sort_3(a);
 	pa(a, b);
 }
- void	rotate_min_to_top(t_node **a)
+
+void	rotate_min_to_top(t_node **a)
 {
 	int	pos;
 	int	size;
@@ -88,4 +101,3 @@ void	sort_tmp(int *arr, int size)
 		i++;
 	}
 }
-

@@ -1,4 +1,17 @@
-#include"push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salzghou <salzghou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 13:30:13 by salzghou          #+#    #+#             */
+/*   Updated: 2026/03/15 13:30:13 by salzghou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
 long	ps_atoi_long(const char *nptr)
 {
 	int		i;
@@ -22,6 +35,7 @@ long	ps_atoi_long(const char *nptr)
 		return (99999999999999);
 	return (sum * sign);
 }
+
 int	ps_atoi_checked(const char *s, int *out)
 {
 	long	res;
@@ -34,6 +48,7 @@ int	ps_atoi_checked(const char *s, int *out)
 	*out = (int)res;
 	return (1);
 }
+
 int	*ps_tokens_to_numbers(char **tokens)
 {
 	int		i;
@@ -57,14 +72,16 @@ int	*ps_tokens_to_numbers(char **tokens)
 	}
 	return (store);
 }
+
 int	ps_has_duplicate(int *numbers, int count)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	i=0;
-	while(i<count)
-	{j = i + 1;
+	i = 0;
+	while (i < count)
+	{
+		j = i + 1;
 		while (j < count)
 		{
 			if (numbers[i] == numbers[j])
@@ -73,8 +90,9 @@ int	ps_has_duplicate(int *numbers, int count)
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
+
 int	ps_tokens_len(char **tokens)
 {
 	int	i;

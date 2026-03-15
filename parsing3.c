@@ -1,4 +1,17 @@
-#include"push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing3.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salzghou <salzghou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 13:30:16 by salzghou          #+#    #+#             */
+/*   Updated: 2026/03/15 13:30:16 by salzghou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
 int	*ps_parse_numbers(int argc, char **argv)
 {
 	char	**tokens;
@@ -21,6 +34,7 @@ int	*ps_parse_numbers(int argc, char **argv)
 	}
 	return (numbers);
 }
+
 int	check(const char *str)
 {
 	int	i;
@@ -38,7 +52,8 @@ int	check(const char *str)
 		return (0);
 	return (1);
 }
-static int	ps_process_arg(char **tokens, char *arg, int k)
+
+int	ps_process_arg(char **tokens, char *arg, int k)
 {
 	char	**split;
 
